@@ -42,7 +42,7 @@ window.addEventListener('load', function () {
     function realizarLogin(settings) {
         if (settings.jwt) {
             localStorage.setItem('jwt', JSON.stringify(settings.jwt));
-            location.replace('/mis-tareas.html');
+            location.replace('mis-tareas.html');
           } else {
             const span = document.querySelector(".campo-login");
             span.innerHTML= `${settings}`;
