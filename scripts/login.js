@@ -1,60 +1,55 @@
-window.addEventListener("load", function() {
-
-    const formLogin = document.forms[0];
-    const inputEmail = document.querySelector("#inputEmail");
-    const inputPass = document.querySelector("#inputPassword");
-    const url = "https://ctd-todo-api.herokuapp.com/v1/users/login";
-
-    /* ---------------------------------------------------------------------------------- */
-    /*                  FUNCION 1: Escuchamos el submit y preparamos el envio             */
-    /* ---------------------------------------------------------------------------------- */
-
-    form.addEventListener("submit", function(event){
+window.addEventListener('load', function () {
+    /* ---------------------- obtenemos variables globales ---------------------- */
+   const formLogin = document.forms[0];
+   const inputEmail = document.getElementById("inputEmail")
+   const inputPass = document.getElementById("inputPassword")
+   const url = 'https://ctd-todo-api.herokuapp.com/v1/users/login';
+   
+    /* -------------------------------------------------------------------------- */
+    /*            FUNCIÓN 1: Escuchamos el submit y preparamos el envío           */
+    /* -------------------------------------------------------------------------- */
+    formLogin.addEventListener('submit', event => {
         event.preventDefault();
-        //creamos el cuerpo de la request
-        const payload = {
+        
+        const usuario = {
             email: inputEmail.value,
             password: inputPass.value
         };
+
         const settings = {
-            method: "POST",
-            body: JSON.stringify(payload),
+            method: 'POST',
+            body: JSON.stringify(usuario),
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             }
         };
-        //lanzamos la consulta de login a la API
-        renderizarLogin(settings);
-        //limpio los campos del formulario
-        form.reset();
-    });
-    function renderizarLogin(settings) {
-    console.log("Lanzando la consulta a la API");
-    fetch(url, settings)
-        .then(Response => {
-            console.log(response);
-            if(response.ok != true) {
-                alert("Alguno de los datos es incorrecto")
-            }
 
-            return response.JSON();
-        })
-        .then(data =>{
-            console.log("Promesa cumplida");
-            console.log(data);
-            if(data.jwt) {
-                //guardo en el local storage el objeto con el token
-                localStorage.setItem("jwt", JSON.stringify(data.jwt));
-               
-                //redireccionamos a la pagina
-                location.replace("./mis-tareas.html");
-            }
-        })
-        .catch(err => {
-            console.log("Promesa rechazada");
-            console.log(err);
-        })
-};
+        
+        fetch(url, settings).then(response => {
+            return response.json()
+          }).then(respuesta => {
+            realizarLogin(respuesta)
+          })
+          .catch(error => {
+            console.log(`Ocurrió un error: ${error}`);
+          })
+    });
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                     FUNCIÓN 2: Realizar el login [POST]                    */
+    /* -------------------------------------------------------------------------- */
+    function realizarLogin(settings) {
+        if (settings.jwt) {
+            localStorage.setItem('jwt', JSON.stringify(settings.jwt));
+            location.replace('/mis-tareas.html');
+          } else {
+            const span = document.querySelector(".campo-login");
+            span.innerHTML= `${settings}`;
+            console.log(`Ocurrió un error: ${settings}`);
+          }
+      };
+    
+
 
 });
-

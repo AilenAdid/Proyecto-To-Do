@@ -13,6 +13,11 @@
   <!-- ---------------- estilos compartidos de login y signup ---------------- -->
   <link rel="stylesheet" href="./css/loginSignupStyles.css">
 
+
+  <!-- ---------------------- logica aplicada en register -------------------- -->
+  <script src="./scripts/utils.js"></script>
+  <script src="./scripts/signup.js"></script>
+
 </head>
 
 <body>
@@ -31,19 +36,28 @@
       </div>
 
       <label>Nombre</label>
-      <input id="inputNombre" type="text" autocomplete="off">
+      <input id="inputNombre" type="text">
 
       <label>Apellido</label>
-      <input id="inputApellido" type="text" autocomplete="off">
+      <input id="inputApellido" type="text">
+      
+      <span class = "campo-texto"></span>
 
       <label>Email</label>
-      <input id="inputEmail" type="text" autocomplete="off">
+      <input id="inputEmail" type="text">
+
+      <span class = "campo-email"></span>
 
       <label>Contraseña</label>
-      <input id="inputPassword" type="password" autocomplete="off">
+      <input id="inputPassword" type="password">
+
+      <span class = "campo-contrasenia"></span>
 
       <label>Repetir contraseña</label>
-      <input id="inputPasswordRepetida" type="password" autocomplete="off">
+      <input id="inputPasswordRepetida" type="password">
+
+      <span class = "campo-contrasenia-dos"></span>
+      <span class = "campo-form"></span>
 
       <button type="submit">Crear Cuenta</button>
     </form>
@@ -52,10 +66,6 @@
       <a href="index.html">¿Ya tienes una cuenta? Ingrese aquí</a>
     </div>
   </div>
-
-  <!-- ---------------------- logica aplicada en register -------------------- -->
-  <script src="./scripts/utils.js"></script>
-  <script src="./scripts/signup.js"></script>
 
 </body>
 
